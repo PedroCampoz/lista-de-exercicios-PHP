@@ -48,14 +48,18 @@
 <?php
 // --- CONFIGURAÇÃO E LÓGICA PRINCIPAL ---
 
-// Define qual exercício está ativo. Se 'q' não estiver na URL, padrão é 0 (página inicial).
-$exercicio_ativo = isset($_GET['q']) ? (int)$_GET['q'] : 0;
+// Define os números dos exercícios que realmente existem.
+$exercicios_disponiveis = [1, 2, 3, 4, 5, 7, 8, 9, 10];
+
+// Define o exercício ativo. Se 'q' não estiver na URL ou não for válido, será 0.
+$exercicio_ativo = (isset($_GET['q']) && in_array($_GET['q'], $exercicios_disponiveis)) ? (int)$_GET['q'] : 0;
+
 $resultado = null;
 $titulo = 'Painel de Exercícios';
 $descricao = 'Selecione um exercício no menu para começar.';
-$campos_formulario = []; // Array para gerar o formulário dinamicamente
+$campos_formulario = [];
 
-// O 'switch' funciona como um roteador, preparando os dados para o exercício selecionado.
+// O 'switch' agora só contém os casos dos exercícios que fizemos.
 switch ($exercicio_ativo) {
     case 1: // Antecessor
         $titulo = 'Questão 1: Antecessor';
@@ -127,20 +131,7 @@ switch ($exercicio_ativo) {
         }
         break;
 
-    case 6: // Ordem Decrescente
-        $titulo = 'Questão 6: Ordem Decrescente';
-        $descricao = 'Digite três números para exibi-los em ordem decrescente.';
-        $campos_formulario = [
-            ['label' => 'Valor A', 'type' => 'number', 'name' => 'val1', 'step' => 'any'],
-            ['label' => 'Valor B', 'type' => 'number', 'name' => 'val2', 'step' => 'any'],
-            ['label' => 'Valor C', 'type' => 'number', 'name' => 'val3', 'step' => 'any']
-        ];
-        if (isset($_GET['val1'], $_GET['val2'], $_GET['val3'])) {
-            $numeros = [(float)$_GET['val1'], (float)$_GET['val2'], (float)$_GET['val3']];
-            rsort($numeros); // Ordena o array em ordem decrescente
-            $resultado = "Ordem: " . implode(", ", $numeros);
-        }
-        break;
+    // O case 6 foi removido daqui.
 
     case 7: // Fatorial
         $titulo = 'Questão 7: Cálculo de Fatorial';
@@ -169,7 +160,6 @@ switch ($exercicio_ativo) {
             $inicio = (int)$_GET['inicio'];
             $fim = (int)$_GET['fim'];
             $impares = [];
-            // Lógica para achar o primeiro ímpar
             $primeiro_impar = ($inicio % 2 != 0) ? $inicio : $inicio + 1;
             for ($i = $primeiro_impar; $i <= $fim; $i += 2) {
                 $impares[] = $i;
@@ -216,7 +206,7 @@ switch ($exercicio_ativo) {
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f0f2f5; margin: 0; padding: 2rem; }
         .container { max-width: 800px; margin: auto; display: grid; grid-template-columns: 200px 1fr; gap: 2rem; }
         nav ul { list-style: none; padding: 0; margin: 0; }
-        nav a { display: block; padding: 0.75rem 1rem; text-decoration: none; color: #333; border-radius: 5px; }
+        nav a { display: block; padding: 0.75rem 1rem; text-decoration: none; color: #333; border-radius: 5px; margin-bottom: 0.25rem; }
         nav a.active, nav a:hover { background-color: #007bff; color: white; }
         .card { background-color: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .campo-form { margin-bottom: 1rem; }
@@ -231,13 +221,13 @@ switch ($exercicio_ativo) {
     <div class="container">
         <nav>
             <ul>
-                <?php for ($i = 1; $i <= 10; $i++): ?>
+                <?php foreach ($exercicios_disponiveis as $num_exercicio): ?>
                     <li>
-                        <a href="?q=<?= $i ?>" class="<?= $exercicio_ativo == $i ? 'active' : '' ?>">
-                            Questão <?= $i ?>
+                        <a href="?q=<?= $num_exercicio ?>" class="<?= $exercicio_ativo == $num_exercicio ? 'active' : '' ?>">
+                            Questão <?= $num_exercicio ?>
                         </a>
                     </li>
-                <?php endfor; ?>
+                <?php endforeach; ?>
             </ul>
         </nav>
 
