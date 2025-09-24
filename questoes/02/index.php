@@ -15,9 +15,18 @@
     </header>
 
     <main>
-
-    <!-- implementação da solução -->
-     
+        <h1>Informe um número em metros abaixo abaixo</h1>
+        <form action="" method="get">
+            <label for="numer">Valor em metros</label>
+            <input type="number" name="metro" id="metros">
+            <input type="submit" value="Calcular">
+        </form>
+        <?php
+     if (isset($_GET['metro']))
+        $metro = $_GET['metro'];
+        $cm = ($metro * 100);
+        echo "O valor em centimetros é $cm cm<br>";
+        ?>
     </main>
 </body>
 
