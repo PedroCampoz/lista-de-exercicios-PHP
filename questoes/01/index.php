@@ -16,26 +16,43 @@
 
     <main>
 
-
-        </form>
     <!-- implementação da solução -->
-             <h1>
+            <!-- <h1>
             Informe um número abaixo
         </h1>
-        <form action="valor.php">
-        <label for="">Número</label>
-        <input type="Number" name="num" id="numer">
+        <form action="valor.php" method="get">
+        <label for="num">Número</label>
+        <input type="number" name="num" id="numer">
         <input type="submit" value = calcular>
         </h1>
 
         <h1>Resultado Final</h1>
-        <?php
+        // <?php
         $num = $_GET['num'];
         $ant = $num - 1;
         $sucessor = $num + 1;
         echo "O seu número é $num";
         echo "O seu sucessor é $sucessor";
         echo "O seu antecessor é $ant";
+        ?> -->
+
+        <h1>Informe um número abaixo</h1>
+        <form action="" method="get">
+            <label for="numer">Número</label>
+            <input type="number" name="num" id="numer">
+            <input type="submit" value="Calcular">
+        </form>
+
+        <h1>Resultado Final</h1>
+        <?php
+        if (isset($_GET['num'])) {
+            $num = $_GET['num'];
+            $ant = $num - 1;
+            $sucessor = $num + 1;
+            echo "O seu número é $num<br>";
+            echo "O seu sucessor é $sucessor<br>";
+            echo "O seu antecessor é $ant<br>";
+        }
         ?>
     </main>
 </body>
