@@ -18,6 +18,24 @@
 
     <!-- implementação da solução -->
      
+        <h1>Informe as horas abaixo</h1>
+        <form action="" method="get">
+            <label for="segundos">Número de segundos</label>
+            <input type="number" name="segundos" id="segundos">
+            <input type="submit" value="Calcular">
+        </form>
+        <?php
+        if (isset($_GET['segundos'])) {
+            $segundos = $_GET['segundos'];
+            $min = $segundos / 60;
+            $horas = number_format
+            ($segundos / 3600, 2, ',', '');
+            echo "O número de horas é: $horas<br>";
+            echo "O número de minutos é: $min <br>";
+
+        }
+            ?>
+
     </main>
 </body>
 

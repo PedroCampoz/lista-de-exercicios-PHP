@@ -11,13 +11,27 @@
 <body>
 
     <header>
-        <h2>Questão 08: Números Ímpares</h2>
+        <h2>Questão 08: Números Ímpares o software</h2>
     </header>
 
     <main>
 
     <!-- implementação da solução -->
-     
+    <h1>Números ímpares entre 1 e 50</h1>
+    <p>
+    <?php
+        for ($i = 1; $i <= 50; $i++) {
+            if ($i % 2 != 0) {
+                echo $i . " ";
+            }
+        }
+    ?>
+    </p>    
+
+        
+        ?>
+
+
     </main>
 </body>
 
